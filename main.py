@@ -1,5 +1,7 @@
+from load import loadFloats, loadInts
+
 def main():
-    pass
+    print(loadInts("data/inputs1.dat"))
 
 if __name__ == '__main__':
     main()
