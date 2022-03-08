@@ -1,7 +1,7 @@
 # Module hamming.py
 import numpy as np
 
-def hammingDistance(x):
+def hammingWeight(x):
     count = 0
     for i in range(8):
         shifted = np.right_shift(x, i)
