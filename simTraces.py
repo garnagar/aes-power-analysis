@@ -18,4 +18,4 @@ def generateSimTrace(vectorPath):
         
     # Transpose the matrix to get the right format
     # H(j,i) -> H(i,j)
-    return list(zip(*H))
+    return np.array(H) #list(zip(*H))
