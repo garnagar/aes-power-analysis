@@ -1,3 +1,14 @@
+"""
+Project: AES Differential Power Analysis
+Authors: Lukas Kyzlik, William Wulff
+Date: 9/3/2022
+
+Description:
+The script implements attack on AES using differential power analysis. Key byte can be discovered correlating power
+consumption traces (input file T1.dat) with Hamming weights of simulated traces, both for vector of plaintexts
+(input1.dat).
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sbox import SBOX
@@ -83,20 +94,20 @@ def getKeyByte(C):
 
 def debugPlotAllCorrelations(C, k):
     for i in range(C.shape[1]):
-        plt.plot(range(C.shape[1]), C[i, :], "#c4c4c4")
-    plt.plot(range(C.shape[1]), C[k, :], "r", label="key byte " + hex(k))
-    plt.ylabel("Correlation [-]")
+        plt.plot(range(C.shape[1]), np.abs(C[i, :]), "#c4c4c4")
+    plt.plot(range(C.shape[1]), np.abs(C[k, :]), "r", label="key byte " + hex(k))
+    plt.ylabel("Absolute correlation [-]")
     plt.xlabel("Sample")
     plt.legend()
     plt.title("Correlations for all key bytes (best correlation in red)")
     plt.show()
 
 def main():
-    T = loadFloats("data/T_test.dat")
-    H = calcHammingMatrix(loadInts("data/inputs_test.dat"))
+    T = loadFloats("data/T1.dat")
+    H = calcHammingMatrix(loadInts("data/inputs1.dat"))
     C = calcCorrelationMatrix(T, H)
     k, corr = getKeyByte(C)
-    print("Key byte is {} == {} with absolute value of correlation {}".format(hex(k), k, np.round(corr, 4)))
+    print("Key byte is {} == {} with max absolute value of correlation {}".format(hex(k), k, np.round(corr, 4)))
     debugPlotAllCorrelations(C, k)
 
 if __name__ == '__main__':
