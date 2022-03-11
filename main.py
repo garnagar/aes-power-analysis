@@ -103,8 +103,8 @@ def debugPlotAllCorrelations(C, k):
     plt.show()
 
 def main():
-    T = loadFloats("data/T1.dat")
-    H = calcHammingMatrix(loadInts("data/inputs1.dat"))
+    T = loadFloats("data/T6.dat")
+    H = calcHammingMatrix(loadInts("data/inputs6.dat"))
     C = calcCorrelationMatrix(T, H)
     k, corr = getKeyByte(C)
     print("Key byte is {} == {} with max absolute value of correlation {}".format(hex(k), k, np.round(corr, 4)))
